@@ -1,5 +1,19 @@
 {% extends 'base.html' %}
 
+
+{% block breadcrumbs %}
+
+    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'blog_view' %}">Blogs</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{blog.slug}}</li>
+    </ol>
+    </nav>
+
+{% endblock breadcrumbs %}
+
+
 {% block content %}
 
     <div class="col-md-6">

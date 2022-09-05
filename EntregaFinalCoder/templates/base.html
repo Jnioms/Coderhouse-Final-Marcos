@@ -82,7 +82,7 @@
               <a class="nav-link" href="{% url 'index' %}">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'index' %}">News</a>
+              <a class="nav-link" href="{% url 'blog_view' %}">Blogs</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'about' %}">About Me</a>
@@ -99,13 +99,20 @@
 	</br>
 
 	<!-- Cuerpo del main -->
+  
   <main class="container">
+    {% block breadcrumbs %}
+    {% endblock breadcrumbs %}
+
     {% block forms %}
     {% endblock forms %}
   </br>
     <div class="row g-5">
     </br>
       {% block content %}
+        {% if not object_list %}
+        <h1>There are no blogs to see!</h1>
+        {% endif %}
       {% endblock content %}
     </div>
 	</main>

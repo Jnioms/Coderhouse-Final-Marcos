@@ -17,7 +17,7 @@ class BlogListView(ListView):
     def get_queryset(self):
         query = self.request.GET.get('q')
         if query:
-            object_list = Blog.objects.filter(Q(author__username__icontains=query) | Q(title__icontains=query) | Q(subtitle__icontains=query)).distinct()
+            object_list = Blog.objects.filter(Q(author__username__icontains=query) | Q(title__icontains=query) | Q(subtitle__icontains=query)).order_by('author').distinct()
         else:
             object_list = Blog.objects.all()
         return object_list
