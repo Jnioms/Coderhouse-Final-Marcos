@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block forms %}
+
+    <form method='GET'>
+        <input type='text' name='q' value='{{ request.GET.q }}'>
+        <input class="button" type='submit' value="Search Blog">
+    </form>
+
+{% endblock forms %}
+
+{% block content %}
+
+    {% for news in object_list %}
+        
+        <div class="col-md-6">
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                    <h3 class="mb-0">{{ news.title }}</h1>
+                    <div class="mb-1 text-muted"><p>On {{ news.datetime|date:'M j' }}, posted by: {{ news.author }}</p></div>
+                    <p class="card-text mb-auto">{{ news.subtitle }}</p>
+                    <p><a href="{{ news.get_absolute_url }}" class="stretched-link">Read more...</a></p>
+                </div>
+            </div>
+        </div>
+    
+    {% endfor %}
+
+{% endblock content %}
