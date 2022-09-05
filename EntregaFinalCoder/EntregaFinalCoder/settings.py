@@ -130,3 +130,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = path.join(BASE_DIR, MEDIA_URL)
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'index'
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = 'mail.matehost.com.ar'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'admin@matehost.com.ar'
+EMAIL_HOST_PASSWORD = r'h62%bEfg31!tUj34'
+
+ADMIN_EMAIL = "admin@matehost.com.ar"
+SUPPORT_EMAIL = "admin@matehost.com.ar"
+DEFAULT_FROM_EMAIL = ADMIN_EMAIL
+SERVER_EMAIL = ADMIN_EMAIL
