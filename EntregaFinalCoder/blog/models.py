@@ -15,9 +15,13 @@ class Blog(models.Model):
     datetime = models.DateTimeField(auto_now=True)
     image = models.ImageField(upload_to='images/')
     slug = AutoSlugField(populate_from='title', slugify_function=my_slugify_function)
+    likes = models.ManyToManyField(User, related_name='blog_like')
     
     def __str__(self):
         return self.slug
 
     def get_absolute_url(self):
         return reverse("blog_detail", kwargs={"slug": self.slug})
+
+    def number_of_likes(self):
+        return self.likes.count()

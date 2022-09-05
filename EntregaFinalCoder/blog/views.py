@@ -1,4 +1,6 @@
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
 
 from django.db.models import Q
 
@@ -21,9 +23,30 @@ class BlogListView(ListView):
         return object_list
 
 
+def BlogLike(request, slug):
+    post = get_object_or_404(Blog, slug=request.POST.get('blog_slug'))
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+    else:
+        post.likes.add(request.user)
+
+    return HttpResponseRedirect(reverse("blog_detail", kwargs={"slug": slug}))
+
+
 class BlogDetailView(LoginRequiredMixin, DetailView):
     model = Blog
     template_name = "blog/blog_detail.html"
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+
+        likes_connected = get_object_or_404(Blog, slug=self.kwargs['slug'])
+        liked = False
+        if likes_connected.likes.filter(id=self.request.user.id).exists():
+            liked = True
+        data['number_of_likes'] = likes_connected.number_of_likes()
+        data['post_is_liked'] = liked
+        return data
 
 class BlogCreateView(LoginRequiredMixin, CreateView):
     model = Blog
