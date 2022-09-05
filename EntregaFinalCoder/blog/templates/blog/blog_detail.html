@@ -11,7 +11,7 @@
             <img src="{{blog.image.url}}" class="img-fluid" alt="Responsive image" alt="{{blog.title}}">
             <p>{{blog.body|safe}}</p>
             <hr>
-            
+
             {% if user.is_authenticated %}
                 <form action="{% url 'blog_like' object.slug %}" method="POST">
                 {% csrf_token %}
@@ -24,6 +24,7 @@
             {% else %}
                 <a class="btn btn-outline-info" href="{% url 'login' %}?next={{request.path}}">Log in to like this article!</a><br>
             {% endif %}
+                </br>
                 <strong class="text-secondary">{{ number_of_likes }} Like{{ number_of_likes|pluralize }}</strong>
         
         </article>
