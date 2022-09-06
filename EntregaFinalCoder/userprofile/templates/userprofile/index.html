@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex flex-column align-items-center text-center">
+                    {% if userprofile.image %} <img src="{{userprofile.image.url}}" alt="Admin" class="rounded-circle" width="150"> {% else %} <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150"> {% endif %}
+                        <div class="mt-3">
+                            <h4>{{ userprofile.username }}</h4>
+                            <p class="text-secondary mb-1">{% if userprofile.userbio %} {{ userprofile.userbio }} {% else %} There is no bio! {% endif %}</p>
+                            {% if user.id == userprofile.id %}
+                                <hr>
+                                <div class="row">
+                                <div class="col-sm-12">
+                                    <a class="btn btn-info " target="__blank" href="{% url 'profile_update' userprofile.id %}">Edit</a>
+                                </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if user.id == userprofile.id %}
+    <div class="col-md-8">
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="row">
+                <div class="col-sm-3">
+                    <h6 class="mb-0">Full Name</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    {%if user.first_name or user.last_name %} {{user.first_name}} {{user.last_name}} {% else %} No name! {% endif %}
+                </div>
+                </div>
+                <hr>
+                <div class="row">
+                <div class="col-sm-3">
+                    <h6 class="mb-0">Email</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    {{user.email}}
+                </div>
+                </div>
+                <hr>
+                <div class="row">
+                <div class="col-sm-12">
+                    <a class="btn btn-info " target="__blank" href="{% url 'user_edit' %}">Edit</a>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+{% endblock content %}
