@@ -11,22 +11,24 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-from os import path
+from os import path, getenv
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+load_dotenv(path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-s-8xzwmyj0u8k47k_67sxyd^i7-iobo24)xk#8$@pe71edi=q#'
+SECRET_KEY = getenv('SECRET_KEY')
+print(getenv('EMAIL_HOST'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = [getenv('ALLOWED_HOSTS')]
 
 
 # Application definition
@@ -136,13 +138,13 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'index'
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = 'mail.matehost.com.ar'
+EMAIL_HOST = getenv("EMAIL_HOST")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'admin@matehost.com.ar'
-EMAIL_HOST_PASSWORD = r'h62%bEfg31!tUj34'
+EMAIL_HOST_USER = getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = getenv("EMAIL_HOST_PASSWORD")
 
-ADMIN_EMAIL = "admin@matehost.com.ar"
-SUPPORT_EMAIL = "admin@matehost.com.ar"
+ADMIN_EMAIL = getenv("ADMIN_EMAIL")
+SUPPORT_EMAIL = ADMIN_EMAIL
 DEFAULT_FROM_EMAIL = ADMIN_EMAIL
 SERVER_EMAIL = ADMIN_EMAIL
