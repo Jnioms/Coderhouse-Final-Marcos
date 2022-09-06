@@ -6,7 +6,7 @@ from django.db.models import Q
 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from blog.models import Blog
 
@@ -58,7 +58,7 @@ class BlogCreateView(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
-class BlogUpdateView(LoginRequiredMixin, UpdateView):
+class BlogUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Blog
     success_url = reverse_lazy('blog_view')
     fields = ["title", "subtitle", "body", "image"]
@@ -68,7 +68,19 @@ class BlogUpdateView(LoginRequiredMixin, UpdateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
-class BlogDeleteView(LoginRequiredMixin, DeleteView):
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author or self.request.user.is_staff:
+            return True
+        return False
+
+class BlogDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Blog
     success_url = reverse_lazy('blog_view')
     template_name = "blog/blog_confirm_delete.html"
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author or self.request.user.is_staff:
+            return True
+        return False

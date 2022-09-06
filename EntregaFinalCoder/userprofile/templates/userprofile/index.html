@@ -10,7 +10,7 @@
                         <div class="mt-3">
                             <h4>{{ userprofile.username }}</h4>
                             <p class="text-secondary mb-1">{% if userprofile.userbio %} {{ userprofile.userbio }} {% else %} There is no bio! {% endif %}</p>
-                            {% if user.id == userprofile.id %}
+                            {% if user.id == userprofile.id or user.is_staff %}
                                 <hr>
                                 <div class="row">
                                 <div class="col-sm-12">
@@ -23,7 +23,7 @@
             </div>
         </div>
     </div>
-    {% if user.id == userprofile.id %}
+    {% if user.id == userprofile.id or user.is_staff %}
     <div class="col-md-8">
         <div class="card mb-3">
             <div class="card-body">
@@ -32,7 +32,7 @@
                     <h6 class="mb-0">Full Name</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                    {%if user.first_name or user.last_name %} {{user.first_name}} {{user.last_name}} {% else %} No name! {% endif %}
+                    {%if userprofile.username.first_name or userprofile.username.last_name %} {{userprofile.username.first_name}} {{userprofile.username.last_name}} {% else %} No name! {% endif %}
                 </div>
                 </div>
                 <hr>
@@ -41,7 +41,7 @@
                     <h6 class="mb-0">Email</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                    {{user.email}}
+                    {{userprofile.username.email}}
                 </div>
                 </div>
                 <hr>

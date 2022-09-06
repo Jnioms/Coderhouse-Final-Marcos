@@ -7,7 +7,7 @@ from userprofile.forms import SignUpForm, UserEditForm
 from userprofile.models import UserProfile
 
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 
 def Signup(request):
@@ -55,7 +55,7 @@ class UserDetail(DetailView):
     model = UserProfile
     template_name = "userprofile/index.html"
 
-class ProfileUpdate(LoginRequiredMixin, UpdateView):
+class ProfileUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = UserProfile
     success_url = reverse_lazy('profile_index')
     fields = ["userbio", "image"]
@@ -64,6 +64,12 @@ class ProfileUpdate(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author or self.request.user.is_staff:
+            return True
+        return False
 
 def ProfileIndex(request):
 
