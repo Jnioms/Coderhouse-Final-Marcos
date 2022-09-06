@@ -67,13 +67,13 @@ class ProfileUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def test_func(self):
         post = self.get_object()
-        if self.request.user == post.author or self.request.user.is_staff:
+        if self.request.user == post.username or self.request.user.is_staff:
             return True
         return False
 
 def ProfileIndex(request):
 
-    obj = get_object_or_404(UserProfile, username_id=request.user.id)
+    obj = get_object_or_404(UserProfile, username = request.user)
 
     return redirect(obj)
 

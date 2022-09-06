@@ -41,6 +41,12 @@
                 </br>
                 <strong class="text-secondary">{{ number_of_likes }} Like{{ number_of_likes|pluralize }}</strong>
         
+            {% if user.id == blog.author.id or user.is_staff %}
+                <hr>
+                <a class="btn btn-info " target="__blank" href="{% url 'blog_update' blog.slug %}">Edit</a>
+                <a class="btn btn-danger " target="__blank" href="{% url 'blog_delete' blog.slug %}">Delete</a>
+            {% endif %}
+
         </article>
     </div>
 

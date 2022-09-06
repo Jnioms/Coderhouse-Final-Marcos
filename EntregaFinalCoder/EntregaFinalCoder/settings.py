@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-load_dotenv(path.join(BASE_DIR, '.env'))
+load_dotenv(path.join(r'C:\Users\juanm\Desktop\Proyectos\Python Coderhouse\Django Coder Final', '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -26,9 +26,9 @@ SECRET_KEY = getenv('SECRET_KEY')
 print(getenv('EMAIL_HOST'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = [getenv('ALLOWED_HOSTS')]
+ALLOWED_HOSTS = ['127.0.0.1','192.168.0.193','matehost.com.ar']
 
 
 # Application definition
