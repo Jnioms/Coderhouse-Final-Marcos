@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% if object_list %}
+      
+        <table class="table table-dark">
+            <tbody>
+              <thead>
+                <tr>
+                  <th scope="col">User</th>
+                  <th scope="col">Datetime</th>
+                  <th scope="col">Message</th>
+                  <th scope="col">{% if user.id == message.username.id or user.is_staff %}Edit {% else %} {% endif %}</th>
+                </tr>
+              </thead>
+              {% for message in object_list %}
+              <tr>
+                <td>{{ message.username }}</td>
+                <td>{{ message.datetime }}</td>
+                <td>{{ message.body }}</td>
+                {% if user.id == message.username.id or user.is_staff %} <td><a href="{% url 'message_update' message.id %}">Edit</a>  <a href="{% url 'message_delete' message.id %}">Delete</a></td> {% else %}<td></td>{% endif %}
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+    
+    {% else %}
+        
+        <h1>There are no messages to see!</h1>
+
+    {% endif %}
+    
+    <a href="{% url 'message_create' %}">Create a new message!</a>
+
+{% endblock content %}
