@@ -41,7 +41,7 @@ Los index de las aplicaciones muestran todos los elementos de cada base de datos
 
 ## Colabora
 
-Si encontras algun error o bug en la pagina, por favor ayudame a mejorar reportandolo [en el repositorio](https://github.com/Jnioms/Entrega1-Marcos/issues). Muchas gracias! :)
+Si encontras algun error o bug en la pagina, por favor ayudame a mejorar reportandolo [en el repositorio](https://github.com/Jnioms/Coderhouse-Final-Marcos/issues). Muchas gracias! :)
 
 ## FAQs
 
